@@ -50,10 +50,8 @@ void execute_command(char *arguments[])
 	}
 }
 
-int main(int argc, char *argv[])
+int main(void)
 {
-	(void)argc;
-
 	char command[MAX_COMMAND_LENGTH];
 	char *arguments[MAX_ARGUMENTS];
 	int running = 1;
