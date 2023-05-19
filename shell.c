@@ -21,7 +21,7 @@ void command_line(char *command)
 /**
 * parse_args - handles arguments in a command
 * @command: command line user input
-* @args: arguments to be executed inthe command
+* @args: arguments to be executed in the command
 */
 void parse_args(char *command, char *args[])
 {
@@ -37,7 +37,7 @@ void parse_args(char *command, char *args[])
 }
 /**
 * execute_command - executes commands
-* @args: arguments to be executed inthe command
+* @args: arguments to be executed in the command
 */
 void execute_command(char *args[])
 {
