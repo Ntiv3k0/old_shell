@@ -110,10 +110,9 @@ void run_non_interactive_mode(FILE *input_file)
 	{
 	remove_newline(command);
 
-int arguments(command, arguments);
+int num_arguments = parse_arguments(command, arguments);
 
-
-	if (arguments = 1)
+	if (num_arguments > 0)
 	{
 	execute_command(arguments);
 	}
