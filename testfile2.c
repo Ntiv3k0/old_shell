@@ -32,15 +32,14 @@ void remove_newline(char *command)
 
 int parse_arguments(char *command, char *arguments[])
 {
-	char *token;
 	int i = 0;
 	
-	token = strtok(command, " ");
+	arguments[i] = strtok(command, " ");
 	
-	while (token != NULL && i < MAX_ARGUMENTS - 1)
+	while (arguments[i] != NULL && i < MAX_ARGUMENTS - 1)
 	{
 	i++;
-	token = strtok(NULL, " ");
+	arguments[i] = strtok(NULL, " ");
 	}
 	arguments[i] = NULL;
 
@@ -76,6 +75,7 @@ void run_interactive_mode()
 	char command[MAX_COMMAND_LENGTH];
 	char *arguments[MAX_ARGUMENTS];
 	int running = 1;
+	int num_arguments;
 
 	while (running)
 	{
@@ -86,17 +86,19 @@ void run_interactive_mode()
 	}
 	remove_newline(command);
 
-	int num_arguments;
-	num_arguments = parse_arguments(command, arguments);
-
 	if (strcmp(command, "exit") == 0)
 	{
 	running = 0;
 	}
 
-	else if (num_arguments > 0)
+	else
+	{
+	num_arguments = parse_arguments(command, arguments);
+
+	if (num_arguments > 0)
 	{
 	execute_command(arguments);
+	}
 	}
 	}
 }
@@ -105,18 +107,19 @@ void run_non_interactive_mode(FILE *input_file)
 {
 	char command[MAX_COMMAND_LENGTH];
 	char *arguments[MAX_ARGUMENTS];
+	int num_arguments;
 
 	while (fgets(command, MAX_COMMAND_LENGTH, input_file) != NULL)
 	{
 	remove_newline(command);
 
-int num_arguments = parse_arguments(command, arguments);
+	num_arguments = parse_arguments(command, arguments);
 
 	if (num_arguments > 0)
 	{
 	execute_command(arguments);
 	}
-}
+	}
 }
 
 int main(int argc, char *argv[])
