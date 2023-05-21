@@ -32,9 +32,9 @@ void remove_newline(char *command)
 
 int parse_arguments(char *command, char *arguments[])
 {
-	int i = 0;
 	char *token;
-
+	int i = 0;
+	
 	token = strtok(command, " ");
 	
 	while (token != NULL && i < MAX_ARGUMENTS - 1)
@@ -86,17 +86,17 @@ void run_interactive_mode()
 	}
 	remove_newline(command);
 
+	int num_arguments;
+	num_arguments = parse_arguments(command, arguments);
+
 	if (strcmp(command, "exit") == 0)
 	{
 	running = 0;
 	}
-	else
-	{
-	int num_arguments = parse_arguments(command, arguments);
-	if (num_arguments > 0)
+
+	else if (num_arguments > 0)
 	{
 	execute_command(arguments);
-	}
 	}
 	}
 }
