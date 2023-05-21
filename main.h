@@ -1,6 +1,13 @@
 #ifndef MAIN_H
 #define MAIN_H
 
+#include <stdio.h>
+#include <string.h>
+#include <unistd.h>
+#include <sys/wait.h>
+#include <stdlib.h>
+#include <fcntl.h>
+
 extern char **environ;
 void print_prompt(void);
 int read_command(char *command);
