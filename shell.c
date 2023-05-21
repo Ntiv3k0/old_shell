@@ -1,47 +1,83 @@
-#include<stdio.h>
-#include<string.h>
-#include<unistd.h>
-#include<sys/wait.h>
-#include<stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <unistd.h>
+#include <sys/wait.h>
+#include <stdlib.h>
+#include <fcntl.h>
 
 #define MAX_COMMAND_LENGTH 1024
-#define MAX_ARGS 64
+#define MAX_ARGUMENTS 64
+
+
 /**
-* command_line - displays prompt for user to type command
-* @command: command line user inputs
+*print_prompt - displays prompt for user to type command
 */
-void command_line(char *command)
+void print_prompt(void)
 {
 	printf("$ ");
+}
+/**
+*read_command - awaits command and reads it
+*@command: command line user inputs
+*Return:1 if successful
+*	0 if unsuccessful
+*/
+int read_command(char *command)
+{
 	if (fgets(command, MAX_COMMAND_LENGTH, stdin) == NULL)
 	{
-		printf("\n");
+		return (0);
+	}
+	return (1);
+}
+
+/**
+*remove_newline - removes newline after command
+*@command: command line user inputs
+*/
+void remove_newline(char *command)
+{
+	size_t len = strlen(command);
+
+	if (len > 0 && command[len - 1] == '\n')
+	{
+		command[len - 1] = '\0';
 	}
 }
+
 /**
-* parse_args - handles arguments in a command
-* @command: command line user input
-* @args: arguments to be executed in the command
+*parse_arguments - handles arguments in a command
+*@command: command line user input
+*@arguments: arguments to be executed in the command
+*Return: argument parsed number
 */
-void parse_args(char *command, char *args[])
+int parse_arguments(char *command, char *arguments[])
 {
 	int i = 0;
+	char *token;
 
-	args[i] = strtok(command, " ");
-	while (args[i] != NULL && i < MAX_ARGS - 1)
+	token = strtok(command, " ");
+
+	while (token != NULL && i < MAX_ARGUMENTS - 1)
 	{
+		arguments[i] = token;
 		i++;
-		args[i] = strtok(NULL, " ");
+		token = strtok(NULL, " ");
 	}
-	args[i] = NULL;
+	arguments[i] = NULL;
+	return (i);
 }
+
+
 /**
-* execute_command - executes commands
-* @args: arguments to be executed in the command
+*execute_command - executes commands
+*@arguments: arguments to be executed in the command
 */
-void execute_command(char *args[])
+void execute_command(char *arguments[])
 {
 	pid_t pid;
+	int status;
+	int input_fd;
 
 	pid = fork();
 	if (pid < 0)
@@ -51,40 +87,29 @@ void execute_command(char *args[])
 	}
 	else if (pid == 0)
 	{
-		execvp(args[0], args);
+		if (arguments[0] != NULL && arguments[1] != NULL
+				&& strcmp(arguments[1], "<") == 0)
+		{
+			input_fd = open(arguments[2], O_RDONLY);
+			if (input_fd < 0)
+			{
+				fprintf(stderr, "Error:Failure to open file '%s'.\n", arguments[2]);
+				exit(EXIT_FAILURE);
+			}
+			if (dup2(input_fd, STDIN_FILENO) < 0)
+			{
+				fprintf(stderr, "Error: Command not found.\n");
+				exit(EXIT_FAILURE);
+			}
+			close(input_fd);
+			arguments[1] = NULL;
+		}
+		execvp(arguments[0], arguments);
 		fprintf(stderr, "Error: Command not found.\n");
 		exit(EXIT_FAILURE);
 	}
 	else
 	{
-		wait(NULL);
+		waitpid(pid, &status, 0);
 	}
-}
-/**
-* main - pront is printed, user imputs command, arguments
-* in the command are executed and give output, exit
-* command is to exit the shell.
-* Return: Always 0
-*/
-int main(void)
-{
-	char command[MAX_COMMAND_LENGTH];
-	char *args[MAX_ARGS];
-	int running = 1;
-
-	while (running)
-	{
-		command_line(command);
-		command[strcspn(command, "\n")] = '\0';
-		if (strcmp(command, "exit") == 0)
-		{
-			running = 0;
-		}
-		else
-		{
-			parse_args(command, args);
-			execute_command(args);
-		}
-	}
-	return (0);
 }
