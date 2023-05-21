@@ -11,23 +11,24 @@
 
 extern char **environ;
 
-void print_prompt()
+void print_prompt(void)
 {
-    printf("$ ");
+	printf("$ ");
 }
 
 int read_command(char *command)
 {
 	if (fgets(command, MAX_COMMAND_LENGTH, stdin) == NULL)
 	{
-		return 0;
+	return (0);
 	}
-	return 1;
+	return (1);
 }
 
 void remove_newline(char *command)
 {
 	size_t len = strlen(command);
+
 	if (len > 0 && command[len - 1] == '\n')
 	{
 		command[len - 1] = '\0';
@@ -38,9 +39,9 @@ int parse_arguments(char *command, char *arguments[])
 {
 	int i = 0;
 	char *token;
-	
+
 	token = strtok(command, " ");
-	
+
 	while (token != NULL && i < MAX_ARGUMENTS - 1)
 	{
 		arguments[i] = token;
@@ -65,12 +66,12 @@ void execute_command(char *arguments[])
 	}
 	else if (pid == 0)
 	{
-		if (arguments[0] != NULL && arguments[1] != NULL && strcmp(arguments[1], "<") == 0)
+	if (arguments[0] != NULL && arguments[1] != NULL && strcmp(arguments[1], "<") == 0)
 		{
-			input_fd = open(arguments[2] , O_RDONLY);
+			input_fd = open(arguments[2], O_RDONLY);
 			if (input_fd < 0)
 			{
-				fprintf(stderr, "Error: Failure to open file '%s' for input redirection.\n", arguments[2]);
+	fprintf(stderr, "Error: Failure to open file '%s' for input redirection.\n", arguments[2]);
 				exit(EXIT_FAILURE);
 			}
 			if (dup2(input_fd, STDIN_FILENO) < 0)
@@ -91,7 +92,7 @@ void execute_command(char *arguments[])
 	}
 }
 
-void run_interactive_mode()
+void run_interactive_mode(void)
 {
 	char command[MAX_COMMAND_LENGTH];
 	char *arguments[MAX_ARGUMENTS];
@@ -113,6 +114,7 @@ void run_interactive_mode()
 		else if (strcmp(command, "env") == 0)
 		{
 			char **env = environ;
+
 			while (*env != NULL)
 			{
 				printf("%s\n", *env);
@@ -148,6 +150,7 @@ void run_non_interactive_mode(FILE *input_file)
 		else if (strcmp(command, "env") == 0)
 		{
 			char **env = environ;
+
 			while (*env != NULL)
 			{
 				printf("%s\n", *env);
@@ -170,6 +173,7 @@ int main(int argc, char *argv[])
 	if (argc > 1)
 	{
 		FILE *input_file = fopen(argv[1], "r");
+
 		if (input_file == NULL)
 		{
 			fprintf(stderr, "Error: Failed to open file '%s'.\n", argv[1]);
