@@ -112,4 +112,6 @@ void execute_command(char *arguments[])
 	{
 		waitpid(pid, &status, 0);
 	}
+	printf("$\n");
+	fflush(stdout);
 }

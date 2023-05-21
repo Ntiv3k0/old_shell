@@ -46,8 +46,6 @@ void run_interactive_mode(void)
 			}
 		}
 	}
-	printf("$\n");
-	fflush(stdout);
 }
 
 /**
