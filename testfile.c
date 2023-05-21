@@ -62,12 +62,15 @@ void execute_command(char *arguments[])
 		fprintf(stderr, "Error: Fork failed.\n");
 		exit(EXIT_FAILURE);
 	}
-	else if (pid == 0)
+	else if
+		(pid == 0)
 	{
-	if (arguments[0] != NULL && arguments[1] != NULL && strcmp(arguments[1], "<") == 0)
+if
+	(arguments[0] != NULL && arguments[1] != NULL && strcmp(arguments[1], "<") == 0)
 		{
 			input_fd = open(arguments[2], O_RDONLY);
-			if (input_fd < 0)
+			if
+				(input_fd < 0)
 			{
 	fprintf(stderr, "Error: Failure to open file '%s' for input redirection.\n", arguments[2]);
 				exit(EXIT_FAILURE);
