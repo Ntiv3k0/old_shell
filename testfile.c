@@ -9,8 +9,6 @@
 #define MAX_COMMAND_LENGTH 1024
 #define MAX_ARGUMENTS 64
 
-extern char **environ;
-
 void print_prompt(void)
 {
 	printf("$ ");
