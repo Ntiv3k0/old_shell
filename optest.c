@@ -1,83 +1,102 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 
 #define BUFFER_SIZE 1024
 
-char* my_getline()
-{
-	static char buffer[BUFFER_SIZE];
-	static size_t pos = 0;
-	static size_t len = 0;
+static char buffer[BUFFER_SIZE];
+static size_t pos;
+static size_t len;
+size_t i, lineLength;
+char *line;
 
-	if (pos >=)
+ssize_t read_buffer(void)
+{
+	ssize_t bytesRead = read(STDIN_FILENO, buffer, BUFFER_SIZE);
+
+	if (bytesRead <= 0)
 	{
-		$size_t bytesRead = read(STDIN_FILENO, buffer, BUFFER_SIZE);
+		return (bytesRead);
+	}
+	pos = 0;
+	len = bytesRead;
+	return (bytesRead);
+}
+
+char *find_newline(void)
+{
+	for (i = pos; i < len; i++)
+	{
+		if (buffer[i] == '\n')
+		{
+			return (&buffer[i]);
+		}
+	}
+	return (NULL);
+}
+
+char *extract_line(void)
+{
+	char *newline = find_newline();
+
+	if (newline != NULL)
+	{
+		lineLength = newline - &buffer[pos] + 1;
+		line = (char *)malloc(lineLength);
+		if (line == NULL)
+		{
+			return (NULL);
+		}
+		for (i = pos; i < pos + lineLength - 1; i++)
+		{
+			line[i - pos] = buffer[i];
+		}
+		line[lineLength - 1] = '\0';
+		pos += lineLength;
+		return (line);
+	}
+	else
+	{
+		lineLength = len - pos;
+		line = (char *)malloc(lineLength + 1);
+		if (line == NULL)
+		{
+			return (NULL);
+		}
+		for (i = pos; i < len; i++)
+		{
+			line[i - pos] = buffer[i];
+		}
+		line[lineLength] = '\0';
+		pos = len;
+		return (line);
+	}
+}
+
+char *my_getline(void)
+{
+	if (pos >= len)
+	{
+		ssize_t bytesRead;
+
+		bytesRead = read_buffer();
 		if (bytesRead <= 0)
 		{
 			return (NULL);
 		}
-		pos = 0;
-		len = bytesRead;
 	}
-
-	char* newline = NULL;
-	for (size_t i = pos; i < len; i+++)
-	{
-		if (buffer[i] == '\n')
-			newline = &buffer[i];
-		break;
-	}
+	return (extract_line());
 }
 
-char* line = NULL;
 
-if (newline != NULL)
+int main(void)
 {
-	size_t lineLength = newline - &buffer[pos] + 1;
-	line = (char*)malloc(lineLength);
-	if (line == NULL)
-	{
-		return (NULL);
-	}
+	char *line;
 
-	for (size_t i = pos; i < pos + lineLength - 1; i++)
-	{
-		line[i - pos] = buffer[i];
-	}
-	line[linelength - 1] = '\0';
-
-	pos += linelength;
-}
-
-else
-{
-	size_t lineLength = len - pos;
-	line = (char*)malloc(lineLength + 1);
-	if (line == NULL)
-	{
-		return (NULL);
-	}
-
-	for (size_t i = pos; < len; i++)
-	{
-		line[i - pos] = buffer[i];
-	}
-	line[linelength] = '\0';
-
-	pos = len;
-}
-
-return (line);
-}
-
-int main()
-{
-	char* line;
 	while ((line = my_getline()) != NULL)
 	{
-		printf("%$\n", line);
+		printf("%s\n", line);
 		free(line);
 	}
-
 	return (0);
 }

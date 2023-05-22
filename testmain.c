@@ -1,40 +1,22 @@
-#include <stdio.h>
-#include <string.h>
-#include <unistd.h>
-#include <sys/wait.h>
-#include <stdlib.h>
-#include <fcntl.h>
+#include "main.h"
 
 #define MAX_COMMAND_LENGTH 1024
 #define MAX_ARGUMENTS 64
 
-
-/**
-*print_prompt - displays prompt for user to type command
-*/
 void print_prompt(void)
 {
 	printf("$ ");
 }
-/**
-*read_command - awaits command and reads it
-*@command: command line user inputs
-*Return:1 if successful
-*	0 if unsuccessful
-*/
+
 int read_command(char *command)
 {
 	if (fgets(command, MAX_COMMAND_LENGTH, stdin) == NULL)
 	{
-		return (0);
+	return (0);
 	}
 	return (1);
 }
 
-/**
-*remove_newline - removes newline after command
-*@command: command line user inputs
-*/
 void remove_newline(char *command)
 {
 	size_t len = strlen(command);
@@ -45,12 +27,6 @@ void remove_newline(char *command)
 	}
 }
 
-/**
-*parse_arguments - handles arguments in a command
-*@command: command line user input
-*@arguments: arguments to be executed in the command
-*Return: argument parsed number
-*/
 int parse_arguments(char *command, char *arguments[])
 {
 	int i = 0;
@@ -68,10 +44,6 @@ int parse_arguments(char *command, char *arguments[])
 	return (i);
 }
 
-/**
-*execute_command - executes commands
-*@arguments: arguments to be executed in the command
-*/
 void execute_command(char *arguments[])
 {
 	pid_t pid;
@@ -84,15 +56,16 @@ void execute_command(char *arguments[])
 		fprintf(stderr, "Error: Fork failed.\n");
 		exit(EXIT_FAILURE);
 	}
-	else if (pid == 0)
+	else if
+		(pid == 0)
 	{
-		if (arguments[0] != NULL && arguments[1] != NULL
-				&& strcmp(arguments[1], "<") == 0)
+if (arguments[0] != NULL && arguments[1] != NULL && strcmp(arguments[1], "<") == 0)
 		{
 			input_fd = open(arguments[2], O_RDONLY);
-			if (input_fd < 0)
+			if
+				(input_fd < 0)
 			{
-				fprintf(stderr, "Error:Failure to open file '%s'.\n", arguments[2]);
+fprintf(stderr, "Error:Failure to open file '%s' for input redirection.\n", arguments[2]);
 				exit(EXIT_FAILURE);
 			}
 			if (dup2(input_fd, STDIN_FILENO) < 0)
@@ -111,6 +84,4 @@ void execute_command(char *arguments[])
 	{
 		waitpid(pid, &status, 0);
 	}
-	printf("$\n");
-	fflush(stdout);
 }
