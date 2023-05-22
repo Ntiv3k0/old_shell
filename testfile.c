@@ -66,13 +66,13 @@ void execute_command(char *arguments[])
 		(pid == 0)
 	{
 if
-	(arguments[0] != NULL && arguments[1] != NULL && strcmp(arguments[1], "<") == 0)
+(arguments[0] != NULL && arguments[1] != NULL && strcmp(arguments[1], <) == 0)
 		{
 			input_fd = open(arguments[2], O_RDONLY);
 			if
 				(input_fd < 0)
 			{
-	fprintf(stderr, "Error: Failure to open file '%s' for input redirection.\n", arguments[2]);
+fprintf(stderr, "Error:Failure to open file '%s' for input redirection.\n", arguments[2]);
 				exit(EXIT_FAILURE);
 			}
 			if (dup2(input_fd, STDIN_FILENO) < 0)
