@@ -1,14 +1,9 @@
-#include <stdio.h>
-#include <string.h>
-#include <unistd.h>
-#include <sys/wait.h>
-#include <stdlib.h>
-#include<fcntl.h>
-
+#include "main.h"
 
 #define MAX_COMMAND_LENGTH 1024
 #define MAX_ARGUMENTS 64
 
+<<<<<<< HEAD:testfile.c
 void print_prompt(void)
 {
 	printf("$ ");
@@ -93,6 +88,12 @@ fprintf(stderr, "Error:Failure to open file '%s' for input redirection.\n", argu
 	}
 }
 
+=======
+/**
+*run_interactive_mode - runs the shell in interactive mode until
+*the "exit" command is entered.
+*/
+>>>>>>> 643007d96b3019b35dee0e38922977c9b234c604:main.c
 void run_interactive_mode(void)
 {
 	char command[MAX_COMMAND_LENGTH];
@@ -134,6 +135,11 @@ void run_interactive_mode(void)
 	}
 }
 
+/**
+*run_non_interactive_mode - runs the shell in non_interactive mode until
+*the "exit" command is entered.
+*@input_file: the file to read commands from
+*/
 void run_non_interactive_mode(FILE *input_file)
 {
 	char command[MAX_COMMAND_LENGTH];
@@ -169,6 +175,14 @@ void run_non_interactive_mode(FILE *input_file)
 	}
 }
 
+/**
+*main - pront is printed, user imputs command, arguments
+*in the command are executed and give output, exit
+*command is to exit the shell.
+*@argc: argument count
+*@argv: argument vector
+*Return: Always 0
+*/
 int main(int argc, char *argv[])
 {
 	if (argc > 1)
