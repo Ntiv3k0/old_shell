@@ -8,6 +8,9 @@
 #include <stdlib.h>
 #include <fcntl.h>
 
+char *extract_line(void);
+ssize_t read_buffer(void);
+
 
 extern char **environ;
 void print_prompt(void);

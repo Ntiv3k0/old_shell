@@ -4,10 +4,10 @@
 #include <sys/wait.h>
 #include <stdlib.h>
 #include <fcntl.h>
+#include "main.h"
 
 #define MAX_COMMAND_LENGTH 1024
 #define MAX_ARGUMENTS 64
-
 
 /**
 *print_prompt - displays prompt for user to type command
