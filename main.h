@@ -1,25 +1,87 @@
 #ifndef MAIN_H
 #define MAIN_H
-
+#define _GNU_SOURCE
 #include <stdio.h>
-#include <string.h>
-#include <unistd.h>
-#include <sys/wait.h>
 #include <stdlib.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 #include <fcntl.h>
+#include <unistd.h>
+#include <string.h>
 
-char *extract_line(void);
-ssize_t read_buffer(void);
+typedef struct ShellVar
+{
+char *n;
+char*val;
+struct ShellVar *next;
+} ShellVar;
 
+typedef struct HistList
+{
+char *cmd;
+struct HistList *next;
+} HistList;
 
-extern char **environ;
-void print_prompt(void);
-int read_command(char *command);
-void remove_newline(char *command);
-int parse_arguments(char *command, char *arguments[]);
-void execute_command(char *arguments[]);
-void run_interactive_mode(void);
-void run_non_interactive_mode(FILE *input_file);
-int main(int argc, char *argv[]);
+typedef struct AliasData
+{
+char *n;
+char *val;
+struct AliasData *next;
+} AliasData;
+
+int _atoi(char *s);
+char **getallenv();
+int setallenv(char **envin, char *newval);
+char *_getenv(char *name);
+int _setenv(char *name, char *val);
+int _unsetenv(char *name);
+int _getline(char **lineptr, int fd);
+int _putchar(char c);
+int _printenv(void);
+void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
+char *strtok(char *str, char *delim);
+char *strtokqe(char *str, char *delim, int escflags);
+AliasData **getalist();
+char *getalias(char *name);
+int setalias(char *name, char *val);
+int unsetalias(char *name);
+int aliascmd(char *av[]);
+int _cd(char *av[]);
+int checkpath(char *av[]);
+int cmdcall(char *av[], char *cmd);
+int builtincall(char *av[]);
+void exitcleanup(char **av);
+char ***getenviron();
+char *_getpid();
+ShellVar **getspecial();
+ShellVar **getvars();
+int help(char *cmd);
+HistList **gethistory();
+int sethist(char *cmd);
+int print_hist(void);
+int exit_hist(void);
+int inputvalidator(char **buf, int fd);
+int shintmode(void);
+int scriptmode(char *av[]);
+char *parsesetsvar(char *buf);
+char *subsvars(char **buf);
+char *cleanarg(char *arg);
+char *tildeexpand(char *buf);
+int parseargs(char **buf);
+int initsvars(int ac, char **av);
+char *getsvar(char *name);
+int setsvar(char *name, char *val);
+int unsetsvar(char *name);
+int _strcmp(char *s1, char *s2);
+size_t _strlen(char *str);
+char *_strcpy(char *dest, char *src);
+char *_strdup(char *str);
+char *_strcat(char *dest, char *src);
+int linecount(int increment);
+char *itos(int digits);
+int printerr(char *str);
+int fprintstrs(int fd, char *str, ...);
+char *_strchr(char *s, char c);
+int main(int ac, char *av[], char **environ);
 
 #endif
