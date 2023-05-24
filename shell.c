@@ -8,8 +8,9 @@
 
 #define MAX_COMMAND_LENGTH 1024
 #define MAX_ARGUMENTS 64
+extern char *__progname;
 
-/**
+/*
 *print_prompt - displays prompt for user to type command
 */
 void print_prompt(void)
