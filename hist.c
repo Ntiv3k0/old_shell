@@ -1,9 +1,8 @@
 #include "main.h"
 
 /**
-*
-*
-*
+* gethistory- gets the history list
+* Return: 0 on success
 */
 HistList **gethistory()
 {
@@ -12,9 +11,9 @@ HistList **gethistory()
 }
 
 /**
-*
-*
-*
+* sethist- sets history list
+* @cmd: command
+* Return: 0 on success
 */
 int sethist(char *cmd)
 {
@@ -45,9 +44,8 @@ int sethist(char *cmd)
 }
 
 /**
-*
-*
-*
+* print_hist- prints al listint elements
+* Return: number of elements
 */
 int print_hist(void)
 {
@@ -73,9 +71,8 @@ int print_hist(void)
 }
 
 /**
-*
-*
-*
+* exit_hist- exits the history and copies to file
+* Return: an int
 */
 int exit_hist(void)
 {

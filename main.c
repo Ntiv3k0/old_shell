@@ -1,5 +1,13 @@
 #include "main.h"
 
+/**
+* inputvalidator- validates buffer input
+* @buf: buffer to be validated
+* @fd: file descriptor
+* Return: command value
+*	negative numbers for syscall errors
+*	2 for syntax errors
+*/
 int inputvalidator(char **buf, int fd)
 {
 	char *newbuf, *bufgl, *bufptr = *buf;
@@ -192,7 +200,8 @@ bufptr++;
 }
 
 /*
-*
+* shintmode- interactive mode in shell
+* Return: 0
 */
 int shintmode(void)
 {
@@ -236,8 +245,12 @@ int shintmode(void)
 	return (ret);
 }
 
-
-
+/**
+* scriptmode- script mode in shell
+* @av: arguments
+* Return: 0 on success 
+*	-1 on failure
+*/
 int scriptmode(char *av[])
 {
 	char *bufgl = NULL;
@@ -271,8 +284,13 @@ int scriptmode(char *av[])
 	return (ret);
 }
 
-
-
+/**
+* main- runs shell
+* @ac: arguments count
+* @av: arguments vectors
+* @environ: environment matrix
+* Return: returns value the last command
+*/
 int main(int ac, char *av[], char **environ)
 {
 	int ret = 0;

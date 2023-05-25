@@ -1,9 +1,10 @@
 #include "main.h"
 
 /**
-*
-*
-*
+* _strtok: tokenizes a string
+* @str: string to be tokenized
+* @delim: delimiters creating tokens
+* Return: a token
 */
 char *_strtok(char *str, char *delim)
 {
@@ -65,9 +66,11 @@ char *_strtok(char *str, char *delim)
 }
 
 /**
-*
-*
-*
+* strtokqe- string token with quotes and escapes
+* @str: the string 
+* @delim: delimeters
+* @escf: escape flags
+* Return: a string
 */
 char *strtokqe(char *str, char *delim, int escf)
 {

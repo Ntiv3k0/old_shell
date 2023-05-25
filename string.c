@@ -1,12 +1,10 @@
 #include "main.h"
 
 /**
-* _strcmp - 
-* @s1:
-* @s2:
-*
-* _strcmp:
-* Return:
+* _strcmp- compares two strings 
+* @s1: string 1
+* @s2: string 2
+* Return: +int or -int or 0 
 */
 int _strcmp(char *s1, char *s2)
 {
@@ -25,9 +23,9 @@ int _strcmp(char *s1, char *s2)
 }
 
 /**
-* _strlen - 
-* @str:
-* Return:
+* _strlen- counts string length 
+* @str: the string 
+* Return: string length
 */
 size_t _strlen(char *str)
 {
@@ -40,11 +38,11 @@ size_t _strlen(char *str)
 }
 
 /**
-* _strcpy - 
-* @dest:
-* Return:
+* _strcpy - copies strings
+* @dest: string 1
+* @scr: string 2
+* Return: string
 */
-
 char *_strcpy(char *dest, char *src)
 {
 	char *ptr = dest;
@@ -56,9 +54,9 @@ char *_strcpy(char *dest, char *src)
 	return (dest);
 }
 /**
-* _strdup - 
-* @str:
-* Return:
+* _strdup- concat strings 
+* @str: string
+* Return: string
 */
 char *_strdup(char *str)
 {
@@ -73,10 +71,10 @@ char *_strdup(char *str)
 }
 
 /**
-*_strcat - 
-* @dest:
-* @src:
-* Return:
+*_strcat- concnat strings  
+* @dest: string 1
+* @src: string 2
+* Return: string
 */
 char *_strcat(char *dest, char *src)
 {

@@ -1,9 +1,11 @@
 #include "main.h"
 
 /**
-*
-*
-*
+* _realloc- reallocates a memory block
+* @ptr: pointer to memory block
+* @o-size: an unsigned int
+* @n_size: an unsigned int
+* Return: pointer
 */
 void *_realloc(void *ptr, unsigned int o_size, unsigned int n_size)
 {
@@ -36,8 +38,10 @@ void *_realloc(void *ptr, unsigned int o_size, unsigned int n_size)
 }
 
 /*
-*
-*
+* _getline- get a line from file descriptor
+* @lineptr: buffer to fill line
+* @fd: file descriptor
+* Return: numbers of characters
 */
 int _getline(char **lineptr, int fd)
 {

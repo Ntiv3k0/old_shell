@@ -1,7 +1,9 @@
 #include "main.h"
 
 /**
-*
+* _atoi- converts a string to an int
+* @s: string to be converted
+* Return: converted int
 */
 int _atoi(char *s)
 {
@@ -37,7 +39,10 @@ int _atoi(char *s)
 }
 
 /**
-*
+* _putchar- writes the character c to STDOUT
+* @c: character to print
+* Return: on success 1
+*	-1 on error
 */
 int _putchar(char s)
 {
@@ -45,10 +50,12 @@ int _putchar(char s)
 }
 
 /**
-*
+* printenv- to print environment
+* Return: 0 on success
 */
 int printenv(void)
 {
+	/* getenviron() - static wrapper copy of whole environ */
 	char ** environ = *(getenviron());
 	int i, j;
 
