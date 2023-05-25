@@ -1,5 +1,6 @@
 #include "main.h"
-void realloc(void *ptr, unsigned int o_size, unsigned int n_size)
+
+void *_realloc(void *ptr, unsigned int o_size, unsigned int n_size)
 {
 void *ret = 0;
 char *write, *read;
@@ -27,14 +28,17 @@ o_size--;
 free(ptr);
 return (ret);
 }
+/*
+*
+*
+*/
 
-
-
-int getline(char **lineptr, int fd)
+int _getline(char **lineptr, int fd)
 {
 int size = 1025;
 int o_size = 0, r = 1, sum = 0, c = 0, d;
 static int begin, end;
+static char buffer[1025];
 
 if (fd == -2)
 {
@@ -43,9 +47,9 @@ end = 0;
 }
 if (lineptr == NULL)
 return (0);
-if (*lineptr == null)
+if (*lineptr == NULL)
 {
-*lineptr == malloc(sizeof(char) * size + 1);
+*lineptr = malloc(sizeof(char) * size + 1);
 if (*lineptr == NULL)
 return (-1);
 }
@@ -57,7 +61,7 @@ if (begin == end)
 {
 r = read(fd, buffer + sum, 1024 - sum);
 begin = 0;
-sun +=r;
+sum +=r;
 end = sum;
 for (d = 0; r != 0 && d < end; d++)
 if (buffer[d] == '\n')
@@ -85,7 +89,7 @@ return (c);
 }
 else
 {
-(*lineptr)[c] = biffer[begin];
+(*lineptr)[c] = buffer[begin];
 }
 c++;
 }
@@ -93,9 +97,9 @@ if (c + begin >= 1024)
 {
 o_size = size;
 size = size + 1024;
-*lineptr = realloc(*lineptr, o_size, size);
+*lineptr = _realloc(*lineptr, o_size, size);
 if (*lineptr == NULL)
-retunr (-1);
+return (-1);
 }
 else
 {

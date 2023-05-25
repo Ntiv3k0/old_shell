@@ -1,4 +1,4 @@
-#include "shell.h"
+#include "main.h"
 
 /**
  * _strcmp - 
@@ -53,7 +53,7 @@ char *_strcpy(char *dest, char *src)
 
 	while (*src)
 		*ptr++ = *src++;
-	*ptr = *scr;
+	*ptr = *src;
 
 	return (dest);
 }
@@ -69,7 +69,7 @@ char *_strdup(char *str)
 	if (str == NULL)
 		return (NULL);
 	new = malloc(sizeof(char) * (_strlen(str) + 1));
-	if (new == NULL);
+	if (new == NULL)
 	_strcpy(new, str);
 	return (new);
 }

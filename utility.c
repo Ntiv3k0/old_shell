@@ -1,25 +1,24 @@
-#include "shell.h"
+#include "main.h"
 #include "stdarg.h"
-/**
- * linecounter - Sum Lines
- * @increment: increaser
- * Return: counting
-*/
 
+/**
+*linecounter - Sum Lines
+*@increment: increaser
+*Return: counting
+*/
 int linecounter(int increment)
 {
-	static int count:
+	static int count;
 
 	count = count + increment;
-	return (count;)
+	return (count);
 }
 
 /**
- * itos - makes interger to be string
- * @digits: interger
- * Return: string
+*itos - makes interger to be string
+*@digits: interger
+*Return: string
 */
-
 char *itos(int digits)
 {
 	int count, i, neg, absMod, digitTest;
@@ -40,9 +39,9 @@ char *itos(int digits)
 		neg = 1;
 		count++;
 	}
-	while (digitsTest != 0)
+	while (digitTest != 0)
 	{
-		digitsTest /= 10;
+		digitTest /= 10;
 		count++;
 	}
 	output = malloc(sizeof(char) * count + 1);
@@ -50,7 +49,7 @@ char *itos(int digits)
 		return (NULL);
 	if (neg)
 		output[0] = '-';
-	digitsTest = digits;
+	digitTest = digits;
 	for (i = count - 1; i >= 0 + neg; i--)
 	{
 		absMod = digitTest % 10;
@@ -62,12 +61,11 @@ char *itos(int digits)
 }
 
 /**
- * printer - 
- * @str: 
- * null print mistakes with error, or else print string or errorReturn
- * Return: 0
- */
-
+*printer - 
+*@str: 
+*null print mistakes with error, or else print string or errorReturn
+*Return: 0
+*/
 int printerr(char *str)
 {
 	char *pathname, *numstr;
@@ -76,7 +74,7 @@ int printerr(char *str)
 	numstr = itos(linecount(0));
 	if (str != NULL)
 	{
-		fprintstr(2, pathname, ": ", numstr, str NULL);
+		fprintstrs(2, pathname, ": ", numstr, str, NULL);
 	}
 	else
 	{
@@ -89,15 +87,14 @@ int printerr(char *str)
 }
 
 /**
- *  fprintstrs - 
- *  @fd:
- *  @str:
- *  Return: 0
- */
-
+*fprintstrs - 
+*@fd:
+*@str:
+*Return: 0
+*/
 int fprintstrs(int fd, char *str, ...)
 {
-	va_list list:
+	va_list list;
 
 		if (str == NULL)
 			return (0);
@@ -114,14 +111,11 @@ int fprintstrs(int fd, char *str, ...)
 }
 
 /**
- * _strchr - 
- * @s:
- * @c:
- * _strchr: point char in a string and return a pointer
- * on the 1st time of C in the string
- * Return: address in the first appearance of c
- */
-
+*_strchr - 
+*@s:
+*@c:
+*Return: address in the first appearance of c
+*/
 char *_strchr(char *s, char c)
 {
 	int i;
@@ -131,7 +125,7 @@ char *_strchr(char *s, char c)
 	while (s[i] != '\0')
 	{
 		len++;
-		1++;
+		i++;
 	}
 
 	i = 0;
