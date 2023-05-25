@@ -1,13 +1,15 @@
 #ifndef MAIN_H
 #define MAIN_H
-#define _GNU_SOURCE
+
+/*#define _GNU_SOURCE*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <fcntl.h>
 #include <unistd.h>
-
+#include <string.h>
+/*
 typedef struct ShellVar
 {
 char *n;
@@ -27,31 +29,31 @@ char *n;
 char *val;
 struct AliasData *next;
 } AliasData;
-
-int _atoi(char *s);
+*/
+int atoi(char *s);
 char **getallenv();
 int setallenv(char **envin, char *newval);
-char *_getenv(char *name);
-int _setenv(char *name, char *val);
-int _unsetenv(char *name);
-int _getline(char **lineptr, int fd);
-int _putchar(char c);
-int _printenv(void);
-void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
-char *strtok(char *str, char *delim);
+char *getenv(char *n);
+int setenv(char *n, char *val);
+int unsetenv(char *n);
+int getline(char **lineptr, int fd);
+int putchar(char c);
+int printenv(void);
+void *realloc(void *ptr, unsigned int old_size, unsigned int new_size);
+/*char *strtok(char *str, char *delim);*/
 char *strtokqe(char *str, char *delim, int escflags);
 AliasData **getalist();
-char *getalias(char *name);
-int setalias(char *name, char *val);
-int unsetalias(char *name);
+char *getalias(char *n);
+int setalias(char *n, char *val);
+int unsetalias(char *n);
 int aliascmd(char *av[]);
-int _cd(char *av[]);
+int cd(char *av[]);
 int checkpath(char *av[]);
 int cmdcall(char *av[], char *cmd);
 int builtincall(char *av[]);
 void exitcleanup(char **av);
 char ***getenviron();
-char *_getpid();
+char *getpid();
 ShellVar **getspecial();
 ShellVar **getvars();
 int help(char *cmd);
@@ -68,19 +70,19 @@ char *cleanarg(char *arg);
 char *tildeexpand(char *buf);
 int parseargs(char **buf);
 int initsvars(int ac, char **av);
-char *getsvar(char *name);
-int setsvar(char *name, char *val);
-int unsetsvar(char *name);
-int _strcmp(char *s1, char *s2);
-size_t _strlen(char *str);
-char *_strcpy(char *dest, char *src);
-char *_strdup(char *str);
-char *_strcat(char *dest, char *src);
+char *getsvar(char *n);
+int setsvar(char *n, char *val);
+int unsetsvar(char *n);
+int strcmp(char *s1, char *s2);
+size_t strlen(char *str);
+char *strcpy(char *dest, char *src);
+char *strdup(char *str);
+char *strcat(char *dest, char *src);
 int linecount(int increment);
 char *itos(int digits);
 int printerr(char *str);
 int fprintstrs(int fd, char *str, ...);
-char *_strchr(char *s, char c);
+char *strchr(char *s, char c);
 int main(int ac, char *av[], char **environ);
 
 #endif

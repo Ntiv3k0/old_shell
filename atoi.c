@@ -1,6 +1,6 @@
 #include "main.h"
 
-int atoi(char *str)
+int atoi(char *s)
 {
 int i, neg, check_num;
 unsigned int x, sum;
@@ -25,11 +25,11 @@ x = 1;
 while (check_num > 0)
 {
 sum = sum + ((s[i] - '0') * x);
-x = x* 10;
+x = x *10;
 i--;
 check_num--;
 }
-if (neg %2 != 0)
+if (neg % 2 != 0)
 sum = sum * -1;
 return (sum);
 }
