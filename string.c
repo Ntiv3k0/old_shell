@@ -1,14 +1,13 @@
 #include "main.h"
 
 /**
- * _strcmp - 
- * @s1:
- * @s2:
- *
- * _strcmp:
- * Return:
- */
-
+* _strcmp - 
+* @s1:
+* @s2:
+*
+* _strcmp:
+* Return:
+*/
 int _strcmp(char *s1, char *s2)
 {
 	int i;
@@ -26,11 +25,10 @@ int _strcmp(char *s1, char *s2)
 }
 
 /**
- * _strlen - 
- * @str:
- * Return:
- */
-
+* _strlen - 
+* @str:
+* Return:
+*/
 size_t _strlen(char *str)
 {
 	size_t length = 0;
@@ -42,10 +40,10 @@ size_t _strlen(char *str)
 }
 
 /**
- * _strcpy - 
- * @dest:
- * Return:
- * */
+* _strcpy - 
+* @dest:
+* Return:
+*/
 
 char *_strcpy(char *dest, char *src)
 {
@@ -58,10 +56,10 @@ char *_strcpy(char *dest, char *src)
 	return (dest);
 }
 /**
- * _strdup - 
- * @str:
- * Return:
- */
+* _strdup - 
+* @str:
+* Return:
+*/
 char *_strdup(char *str)
 {
 	char *new;
@@ -75,12 +73,11 @@ char *_strdup(char *str)
 }
 
 /**
- * _strcat - 
- * @dest:
- * @src:
- * Return:
- */
-
+*_strcat - 
+* @dest:
+* @src:
+* Return:
+*/
 char *_strcat(char *dest, char *src)
 {
 	char *ptrs = dest;
