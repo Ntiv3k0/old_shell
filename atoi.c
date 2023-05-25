@@ -10,7 +10,7 @@ check_num = 0;
 sum = 0;
 i = 0;
 
-while (s[i] != '\0')
+while ([i] != '\0')
 {
 if ((s[i] > '9' || s[i] < '0') && check_num > 0)
 break;
@@ -36,7 +36,7 @@ return (sum);
 
 int _putchar(char s)
 {
-return (write(1, &s, 1);
+return (write(1, &s, 1));
 }
 
 int _printenv(void)
